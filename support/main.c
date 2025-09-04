@@ -36,7 +36,7 @@ main (int argc __attribute__ ((unused)),
 
   correct = verify_benchmark (result);
   uint64_t total_cycles = end_cycles - start_cycles;
-  printf ("Total cycles: %llu", total_cycles);
+  printf ("Total cycles: %llu\n", total_cycles);
   return (!correct);
 
 }				/* main () */
