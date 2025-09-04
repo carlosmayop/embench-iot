@@ -35,6 +35,10 @@ from embench_core import find_benchmarks
 from embench_core import log_benchmarks
 from embench_core import arglist_to_str
 
+RED = "\033[31m"
+GREEN = "\033[32m"
+BOLD = '\033[1m'
+NC='\033[0m'
 
 def build_parser():
     """Build a parser for all the arguments"""
@@ -736,6 +740,8 @@ def main():
     if successful:
         log.debug('Compilation of support files successful')
 
+    num_benchmarks = len(benchmarks)
+    num_benchmark = 1
     for bench in benchmarks:
         res = compile_benchmark(bench)
         successful &= res
@@ -745,10 +751,14 @@ def main():
             successful &= res
             if res:
                 log.debug('Linking of benchmark "{bench}" successful'.format(bench=bench))
-                log.info(bench)
+                #log.info(bench)
+                print(f"\033[KCompiling {bench} [{num_benchmark}:{num_benchmarks}]", end='\r', flush=True)
+                
+        num_benchmark += 1
 
     if successful:
-        log.info('All benchmarks built successfully')
+        log.debug('All benchmarks built successfully')
+        print(f"\033[K{GREEN}All benchmarks built successfully!{NC}")
 
 
 # Make sure we have new enough Python and only run if this is the main package
