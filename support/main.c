@@ -12,6 +12,7 @@
    SPDX-License-Identifier: GPL-3.0-or-later */
 
 #include "support.h"
+#include <stdio.h>
 
 
 int __attribute__ ((used))
@@ -21,19 +22,21 @@ main (int argc __attribute__ ((unused)),
   int i;
   volatile int result;
   int correct;
+  uint64_t start_cycles, end_cycles;
 
   initialise_board ();
   initialise_benchmark ();
-  warm_caches (WARMUP_HEAT);
+  warm_caches (1);
 
-  start_trigger ();
+  start_cycles = read_mcycle ();
   result = benchmark ();
-  stop_trigger ();
+  end_cycles = read_mcycle ();
 
   /* bmarks that use arrays will check a global array rather than int result */
 
   correct = verify_benchmark (result);
-
+  uint64_t total_cycles = end_cycles - start_cycles;
+  printf ("Total cycles: %llu", total_cycles);
   return (!correct);
 
 }				/* main () */

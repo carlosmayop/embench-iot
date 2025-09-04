@@ -15,6 +15,8 @@
 #ifndef SUPPORT_H
 #define SUPPORT_H
 
+#include "csr.h"
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
