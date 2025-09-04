@@ -752,7 +752,7 @@ def main():
             if res:
                 log.debug('Linking of benchmark "{bench}" successful'.format(bench=bench))
                 #log.info(bench)
-                print(f"\033[KCompiling {bench} [{num_benchmark}:{num_benchmarks}]", end='\r', flush=True)
+                print(f"\033[KCompiling {bench} [{num_benchmark}/{num_benchmarks}]", end='\r', flush=True)
                 
         num_benchmark += 1
 
